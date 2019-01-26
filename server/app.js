@@ -6,6 +6,7 @@ var express = require('express'),
 
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
+var admZip = require('adm-zip')
 
 app.use(cors())
 app.use(fileUpload())
@@ -30,11 +31,16 @@ app.get('/old', function(req, res) {
 app.post('/upload', (req, res, next) => {
   let file = req.files.file
   console.log('file : ', file)
+  let path = `${__dirname}/uploads/${file.name}`
 
-  file.mv(`${__dirname}/uploads/${file.name}`, function(err) {
+  file.mv(path, function(err) {
     if (err) {
       return res.status(500).send(err)
     }
+
+    var zip = new admZip(path)
+    zip.extractAllTo(path.slice(0, -4), true)
+    // res.send('unzip')
 
     res.json({ file: `uploads/${file.name}` })
   })

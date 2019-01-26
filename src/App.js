@@ -70,11 +70,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Dropzone
-          // accept="image/*"
-
-          onDrop={this.onDrop}
-        >
+        <Dropzone accept=".zip" onDrop={this.onDrop}>
           {({
             getRootProps,
             getInputProps,
