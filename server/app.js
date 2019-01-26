@@ -27,31 +27,16 @@ app.get('/old', function(req, res) {
   )
 })
 
-// app.post('/upload', function(req, res) {
-//   console.log('req', req)
-//   console.log('req.files', req.files)
-
-//   var files = req.files.file
-//   if (Array.isArray(files)) {
-//     // response with multiple files (old form may send multiple files)
-//     console.log('Got ' + files.length + ' files')
-//   } else {
-//     // dropzone will send multiple requests per default
-//     console.log('Got one file')
-//   }
-//   res.sendStatus(200)
-// })
-
 app.post('/upload', (req, res, next) => {
-  let imageFile = req.files.file
-  console.log('imageFile : ', imageFile)
+  let file = req.files.file
+  console.log('file : ', file)
 
-  imageFile.mv(`${__dirname}/uploads/${imageFile.name}`, function(err) {
+  file.mv(`${__dirname}/uploads/${file.name}`, function(err) {
     if (err) {
       return res.status(500).send(err)
     }
 
-    res.json({ file: `uploads/${imageFile.name}` })
+    res.json({ file: `uploads/${file.name}` })
   })
 })
 
