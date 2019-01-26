@@ -7,6 +7,7 @@ import axios from 'axios'
 
 window.log = log
 
+const endPoint = 'http://54.180.97.249:8000'
 const getColor = props => {
   if (props.isDragReject) {
     return '#c66'
@@ -45,7 +46,7 @@ class App extends Component {
       var formData = new FormData()
       formData.append('file', file)
       axios
-        .post('http://localhost:8000/upload', formData)
+        .post(endPoint + '/upload', formData)
         .then(function(response) {
           log('response', response)
         })
@@ -58,7 +59,7 @@ class App extends Component {
   componentDidMount() {
     log('componentDidMount')
     axios
-      .get('http://localhost:8000')
+      .get(endPoint)
       .then(function(response) {
         log('response', response)
       })
