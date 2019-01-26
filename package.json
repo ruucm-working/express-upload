@@ -1,0 +1,28 @@
+{
+  "name": "react-test",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-ruucm:ruucm/react-in-simple-html.git"
+  },
+  "author": "ruucm",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-preset-react-app": "^3.1.0",
+    "classnames": "^2.2.6",
+    "parcel-bundler": "latest",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-dropzone": "^8.0.3",
+    "ruucm-util": "^0.11.0",
+    "styled-components": "^4.1.3"
+  }
+}
