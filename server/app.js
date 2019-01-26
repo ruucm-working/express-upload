@@ -7,6 +7,7 @@ var express = require('express'),
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
 var admZip = require('adm-zip')
+var shell = require('shelljs')
 
 app.use(cors())
 app.use(fileUpload())
@@ -40,7 +41,11 @@ app.post('/upload', (req, res, next) => {
 
     var zip = new admZip(path)
     zip.extractAllTo(path.slice(0, -4), true)
-    // res.send('unzip')
+
+    var repoName = file.name.slice(0, -4) + Date.now()
+    shell.exec('sh git-create ' + repoName)
+
+    shell.exec('sh git-push ' + file.name.slice(0, -4) + ' ' + repoName)
 
     res.json({ file: `uploads/${file.name}` })
   })
