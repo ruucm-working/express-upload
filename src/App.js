@@ -4,10 +4,10 @@ import Dropzone from 'react-dropzone'
 import styled from 'styled-components'
 import { log } from 'ruucm-util'
 import axios from 'axios'
+import { endPoint } from './consts'
 
 window.log = log
 
-const endPoint = 'http://54.180.97.249:8000'
 const getColor = props => {
   if (props.isDragReject) {
     return '#c66'
