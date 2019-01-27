@@ -46,10 +46,13 @@ app.post('/upload', (req, res, next) => {
     zip.extractAllTo('uploads/', true)
 
     var repoName = file.name.slice(0, -4) + Date.now()
+    var dirName = file.name.slice(0, -4)
     shell.exec('sh scripts/git-create ' + repoName)
-    shell.exec('sh scripts/git-push ' + file.name.slice(0, -4) + ' ' + repoName)
+    shell.exec('sh scripts/git-push ' + dirName + ' ' + repoName)
 
-    shell.exec('sh scripts/netlify ' + file.name.slice(0, -4) + ' ' + repoName)
+    shell.exec('sh scripts/netlify ' + dirName + ' ' + repoName)
+
+    shell.exec('sh scripts/clean ' + dirName + ' ' + repoName)
 
     res.json({
       file: `uploads/${file.name}`,

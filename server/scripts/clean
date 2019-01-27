@@ -1,0 +1,8 @@
+#!/bin/sh
+
+dir_name=$1
+
+cd uploads/
+
+rm -rf $dir_name
+rm $dir_name.zip
