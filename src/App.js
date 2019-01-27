@@ -34,12 +34,17 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      gitRepoUrl: 'https://github.com',
-      liveUrl: 'https://netlify.com',
+      gitRepoUrl: '',
+      liveUrl: '',
+      isLoading: false,
     }
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
+    this.setState({
+      isLoading: true,
+    })
+
     acceptedFiles.forEach(file => {
       var formData = new FormData()
       formData.append('file', file)
@@ -50,6 +55,7 @@ class App extends Component {
           this.setState({
             gitRepoUrl: res.data.gitRepoUrl,
             liveUrl: res.data.liveUrl,
+            isLoading: false,
           })
         })
         .catch(error => {
@@ -61,18 +67,25 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>
-          gitRepoUrl :{' '}
-          <a href={this.state.gitRepoUrl} target="_blank">
-            {this.state.gitRepoUrl}
-          </a>
-        </h1>
-        <h1>
-          liveUrl :{' '}
-          <a href={this.state.liveUrl} target="_blank">
-            {this.state.liveUrl}
-          </a>
-        </h1>
+        {this.state.isLoading ? (
+          <h1>Loading..</h1>
+        ) : (
+          <div>
+            <h1>
+              gitRepoUrl :{' '}
+              <a href={this.state.gitRepoUrl} target="_blank">
+                {this.state.gitRepoUrl}
+              </a>
+            </h1>
+            <h1>
+              liveUrl :{' '}
+              <a href={this.state.liveUrl} target="_blank">
+                {this.state.liveUrl}
+              </a>
+            </h1>
+          </div>
+        )}
+
         <Dropzone
           accept=".zip"
           onDrop={(acceptedFiles, rejectedFiles) =>
