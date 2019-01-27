@@ -42,7 +42,8 @@ app.post('/upload', (req, res, next) => {
     }
 
     var zip = new admZip(path)
-    zip.extractAllTo(path.slice(0, -4), true)
+    // zip.extractAllTo(path.slice(0, -4), true)
+    zip.extractAllTo('uploads/', true)
 
     var repoName = file.name.slice(0, -4) + Date.now()
     shell.exec('sh scripts/git-create ' + repoName)
