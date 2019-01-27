@@ -1,3 +1,9 @@
 #!/bin/sh
 
-netlify deploy --prod --dir ./
+dir_name=$1
+repo_name=$2
+
+cd uploads/$dir_name
+
+yes | netlify deploy --prod --dir ./ --site $(yes | netlify sites:create --name $repo_name | grep 'Site ID' | awk '{print substr($0,21)}')
+#  echo $(yes | netlify sites:create --name $repo_name | grep 'Site ID' | awk '{print substr($0,21)}')

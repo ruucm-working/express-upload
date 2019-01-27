@@ -34,43 +34,51 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
+      gitRepoUrl: 'https://github.com',
+      liveUrl: 'https://netlify.com',
     }
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
-    log('hey!!!')
-    log('acceptedFiles', acceptedFiles)
-
     acceptedFiles.forEach(file => {
       var formData = new FormData()
       formData.append('file', file)
       axios
         .post(endPoint + '/upload', formData)
-        .then(function(response) {
-          log('response', response)
+        .then(res => {
+          log('res', res)
+          this.setState({
+            gitRepoUrl: res.data.gitRepoUrl,
+            liveUrl: res.data.liveUrl,
+          })
         })
-        .catch(function(error) {
+        .catch(error => {
           console.log(error)
         })
     })
   }
 
-  componentDidMount() {
-    log('componentDidMount')
-    axios
-      .get(endPoint)
-      .then(function(response) {
-        log('response', response)
-      })
-      .catch(function(error) {
-        console.log(error)
-      })
-  }
   render() {
     return (
       <div>
-        <Dropzone accept=".zip" onDrop={this.onDrop}>
+        <h1>
+          gitRepoUrl :{' '}
+          <a href={this.state.gitRepoUrl} target="_blank">
+            {this.state.gitRepoUrl}
+          </a>
+        </h1>
+        <h1>
+          liveUrl :{' '}
+          <a href={this.state.liveUrl} target="_blank">
+            {this.state.liveUrl}
+          </a>
+        </h1>
+        <Dropzone
+          accept=".zip"
+          onDrop={(acceptedFiles, rejectedFiles) =>
+            this.onDrop(acceptedFiles, rejectedFiles)
+          }
+        >
           {({
             getRootProps,
             getInputProps,

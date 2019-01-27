@@ -49,11 +49,12 @@ app.post('/upload', (req, res, next) => {
     shell.exec('sh scripts/git-create ' + repoName)
     shell.exec('sh scripts/git-push ' + file.name.slice(0, -4) + ' ' + repoName)
 
-    // shell.exec('sh scripts/netlify')
+    shell.exec('sh scripts/netlify ' + file.name.slice(0, -4) + ' ' + repoName)
 
     res.json({
       file: `uploads/${file.name}`,
-      gitRepo: 'https://github.com/' + gitOrigin + '/' + repoName,
+      gitRepoUrl: 'https://github.com/' + gitOrigin + '/' + repoName,
+      liveUrl: 'https://' + repoName + '.netlify.com',
     })
   })
 })
