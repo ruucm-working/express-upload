@@ -9,6 +9,8 @@ const fileUpload = require('express-fileupload')
 var admZip = require('adm-zip')
 var shell = require('shelljs')
 
+const { gitOrigin } = require('../shared/consts')
+
 app.use(cors())
 app.use(fileUpload())
 
@@ -44,10 +46,14 @@ app.post('/upload', (req, res, next) => {
 
     var repoName = file.name.slice(0, -4) + Date.now()
     shell.exec('sh git-create ' + repoName)
-
     shell.exec('sh git-push ' + file.name.slice(0, -4) + ' ' + repoName)
 
-    res.json({ file: `uploads/${file.name}` })
+    // shell.exec('sh netlify')
+
+    res.json({
+      file: `uploads/${file.name}`,
+      gitRepo: 'https://github.com/' + gitOrigin + '/' + repoName,
+    })
   })
 })
 

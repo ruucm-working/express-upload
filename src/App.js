@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone'
 import styled from 'styled-components'
 import { log } from 'ruucm-util'
 import axios from 'axios'
-import { endPoint } from './consts'
+import { endPoint } from '../shared/consts'
 
 window.log = log
 
