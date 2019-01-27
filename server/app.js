@@ -41,12 +41,13 @@ app.post('/upload', (req, res, next) => {
       return res.status(500).send(err)
     }
 
-    var zip = new admZip(path)
-    // zip.extractAllTo(path.slice(0, -4), true)
-    zip.extractAllTo('uploads/', true)
-
     var repoName = file.name.slice(0, -4) + Date.now()
     var dirName = file.name.slice(0, -4)
+
+    var zip = new admZip(path)
+    // zip.extractAllTo(path.slice(0, -4), true)
+    zip.extractAllTo('uploads/' + dirName, true)
+
     shell.exec('sh scripts/git-create ' + repoName)
     shell.exec('sh scripts/git-push ' + dirName + ' ' + repoName)
 
