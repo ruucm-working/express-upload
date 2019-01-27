@@ -63,6 +63,17 @@ class App extends Component {
         })
     })
   }
+  componentDidMount() {
+    log('test connect to server (componentDidMount)')
+    axios
+      .get(endPoint)
+      .then(function(response) {
+        log('response', response)
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+  }
 
   render() {
     return (
