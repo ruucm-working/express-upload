@@ -34,8 +34,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      gitRepoUrl: '',
-      liveUrl: '',
+      gitRepoUrl: 'none',
+      liveUrl: 'none',
       isLoading: false,
     }
   }
